@@ -1,0 +1,36 @@
+name: Build Windows installer
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install
+        run: npm install --no-audit --no-fund
+      - name: Build installer
+        run: npm run dist
+      - name: Read version
+        id: ver
+        shell: bash
+        run: echo "v=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
+      - name: Publish to Releases
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.ver.outputs.v }}
+          name: Decide ${{ steps.ver.outputs.v }} for Windows
+          body: |
+            Download **DecideSetup.exe** below and run it.
+            If Windows says "Windows protected your PC", click **More info → Run anyway**.
+          files: dist/DecideSetup.exe
+          make_latest: true

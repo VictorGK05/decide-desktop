@@ -1,6 +1,6 @@
 # Decide for Windows
 
-The Windows app for [Decide](https://decide-app-531e1.web.app). It opens the live site in its own window, so it's always up to date.
+The Windows app for [Decide](https://decide-app-531e1.web.app). It opens the live site in its own window using the browser engine built into Windows, so the installer is tiny and the app is always up to date.
 
 **Download:** [DecideSetup.exe](https://github.com/VictorGK05/decide-desktop/releases/latest/download/DecideSetup.exe)
 

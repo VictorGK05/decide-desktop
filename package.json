@@ -1,41 +1,13 @@
 {
   "name": "decide-desktop",
-  "productName": "Decide",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Decide for Windows",
-  "author": "Decide",
-  "license": "UNLICENSED",
   "private": true,
-  "main": "main.js",
   "scripts": {
-    "start": "electron .",
-    "dist": "electron-builder --win nsis --x64 --publish never"
+    "tauri": "tauri",
+    "dist": "tauri build"
   },
   "devDependencies": {
-    "electron": "^37.0.0",
-    "electron-builder": "^26.0.12"
-  },
-  "build": {
-    "appId": "com.decide.app",
-    "productName": "Decide",
-    "copyright": "Decide",
-    "directories": { "buildResources": "build", "output": "dist" },
-    "files": ["main.js", "package.json", "build/icon.ico"],
-    "win": {
-      "target": "nsis",
-      "icon": "build/icon.ico",
-      "artifactName": "DecideSetup.exe"
-    },
-    "nsis": {
-      "oneClick": true,
-      "perMachine": false,
-      "createDesktopShortcut": true,
-      "createStartMenuShortcut": true,
-      "shortcutName": "Decide",
-      "runAfterFinish": true,
-      "deleteAppDataOnUninstall": false,
-      "installerIcon": "build/icon.ico",
-      "uninstallerIcon": "build/icon.ico"
-    }
+    "@tauri-apps/cli": "^2.0.0"
   }
 }

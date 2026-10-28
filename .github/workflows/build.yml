@@ -16,10 +16,20 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
       - name: Install
         run: npm install --no-audit --no-fund
       - name: Build installer
         run: npm run dist
+      - name: Rename installer
+        shell: bash
+        run: |
+          f=$(ls src-tauri/target/release/bundle/nsis/*-setup.exe | head -1)
+          mkdir -p out && cp "$f" out/DecideSetup.exe
+          ls -la out
       - name: Read version
         id: ver
         shell: bash
@@ -32,5 +42,5 @@ jobs:
           body: |
             Download **DecideSetup.exe** below and run it.
             If Windows says "Windows protected your PC", click **More info → Run anyway**.
-          files: dist/DecideSetup.exe
+          files: out/DecideSetup.exe
           make_latest: true
